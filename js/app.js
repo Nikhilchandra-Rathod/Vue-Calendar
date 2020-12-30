@@ -1,6 +1,7 @@
 const App = {
   data(){
     return {
+      currentDate: new Date().getDate(),
       currentMonth: new Date().getMonth(),
       currentYear: new Date().getFullYear(),
       days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -22,6 +23,10 @@ const App = {
       } else {
         this.currentMonth++;
       }
+    },
+    currentDateClass(currentDay) {
+      var isToday = new Date(this.currentYear, this.currentMonth, currentDay).toDateString() === new Date().toDateString();
+      return isToday ? 'font-bold text-red-500' : '';
     }
   },
   computed: {
@@ -53,7 +58,12 @@ const App = {
           </div>
           <div class="flex flex-wrap">
             <div class="flex items-center justify-center h-8" style="width: 14.28%" v-for="day in startDayOfMonth" :key="day"></div>
-            <div class="flex items-center justify-center h-8" style="width: 14.28%" v-for="day in daysInMonth" :key="day">{{day}}</div>
+            <div
+              class="flex items-center justify-center h-8" \
+              style="width: 14.28%"
+              v-for="day in daysInMonth"
+              :key="day"
+              :class="currentDateClass(day)">{{day}}</div>
           </div>
         </div>
       </div>
